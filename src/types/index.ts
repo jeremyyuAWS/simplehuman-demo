@@ -139,15 +139,35 @@ export type MessageContent =
   | LoginRequiredContent;
 
 export interface Message {
-  sender: 'user' | 'bot';
-  content: MessageContent;
-  timestamp: Date;
-  type?: 'text' | 'product-options' | 'product-recommendation' | 'troubleshooting' | 'order-tracking' | 'order-history' | 'warranty' | 'return' | 'product-comparison' | 'login-required';
-  requiresAuth?: boolean;
-  intent?: string[];
-  entities?: {[key: string]: string};
-  context?: {[key: string]: any};
-  image?: string;
+  role: 'user' | 'assistant';
+  content: string;
+  metadata?: {
+    intent?: string;
+    products?: string[];
+    features?: string[];
+    sentiment?: 'positive' | 'negative' | 'neutral' | 'concerned' | 'frustrated' | 'worried' | 'empathetic' | 'helpful' | 'interested';
+  };
+}
+
+export interface Conversation {
+  id: string;
+  name: string;
+  description: string;
+  messages: Message[];
+}
+
+export interface ScenarioMetadata {
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  estimatedDuration: number;
+  tags: string[];
+}
+
+export interface Scenario {
+  id: string;
+  name: string;
+  description: string;
+  metadata: ScenarioMetadata;
+  conversations: Conversation[];
 }
 
 export interface User {

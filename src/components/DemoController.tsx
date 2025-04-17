@@ -1,12 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import { motion } from 'framer-motion';
-import { BsRobot, BsX, BsChatLeftText, BsArrowReturnLeft, BsShieldCheck, BsRecycle, BsTools, BsQuestionCircle } from 'react-icons/bs';
+import { BsRobot, BsX, BsChatLeftText, BsArrowReturnLeft, BsShieldCheck, BsRecycle, BsTools, BsQuestionCircle, BsCart, BsHouse, BsWrench } from 'react-icons/bs';
 import { conversationStarters, conversationScenarios } from '../data/mockProducts';
+import { enhancedDemoScenarios } from '../data/demoScenarios';
 import { useConversationStore } from '../store/conversationStore';
 
 interface DemoControllerProps {
   onClose: () => void;
 }
+
+type EnhancedScenarioId = keyof typeof enhancedDemoScenarios;
 
 export const DemoController: React.FC<DemoControllerProps> = ({ onClose }) => {
   const { resetConversation, sendMessage } = useConversationStore();
@@ -21,6 +24,21 @@ export const DemoController: React.FC<DemoControllerProps> = ({ onClose }) => {
     // Send the initial message after a brief delay
     setTimeout(() => {
       sendMessage(starter.initialMessage);
+    }, 500);
+    
+    onClose();
+  };
+
+  // Function to start an enhanced demo scenario
+  const startEnhancedDemo = (scenarioId: EnhancedScenarioId) => {
+    const scenario = enhancedDemoScenarios[scenarioId];
+    
+    // Reset conversation first
+    resetConversation();
+    
+    // Send the initial message after a brief delay
+    setTimeout(() => {
+      sendMessage(scenario.conversations[0].message);
     }, 500);
     
     onClose();
@@ -46,105 +64,90 @@ export const DemoController: React.FC<DemoControllerProps> = ({ onClose }) => {
     }
   ];
 
+  // Enhanced demo scenarios
+  const enhancedScenarios = [
+    {
+      id: 'multi-intent-shopping' as EnhancedScenarioId,
+      title: 'Multi-Intent Shopping',
+      description: 'Show how the AI handles multiple product inquiries',
+      icon: <BsCart className="w-6 h-6" />
+    },
+    {
+      id: 'complex-troubleshooting' as EnhancedScenarioId,
+      title: 'Complex Troubleshooting',
+      description: 'Demonstrate handling multiple product issues',
+      icon: <BsWrench className="w-6 h-6" />
+    },
+    {
+      id: 'personalized-recommendations' as EnhancedScenarioId,
+      title: 'Personalized Recommendations',
+      description: 'Show lifestyle-based product suggestions',
+      icon: <BsHouse className="w-6 h-6" />
+    }
+  ];
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-sm font-medium text-gray-700">Demo Conversation Starters</h3>
-        <motion.button 
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-bold">Demo Scenarios</h2>
+        <button
           onClick={onClose}
-          className="text-gray-500"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          className="p-2 hover:bg-gray-100 rounded-full"
         >
-          <BsX className="h-4 w-4" />
-        </motion.button>
-      </div>
-      
-      <div className="space-y-4">
-        {categorizedStarters.map((category, idx) => (
-          <div key={idx} className="space-y-2">
-            <h4 className="text-xs font-medium uppercase text-gray-500">{category.category}</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {category.starters.map((starter, index) => (
-                <motion.button
-                  key={starter.id}
-                  className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 p-2 rounded text-left text-sm"
-                  onClick={() => startDemo(conversationStarters.findIndex(s => s.id === starter.id))}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div>
-                    <div className="font-medium text-gray-800">{starter.name}</div>
-                    <div className="text-xs text-gray-500 truncate max-w-xs">{starter.initialMessage}</div>
-                  </div>
-                  <BsChatLeftText className="text-gray-400 flex-shrink-0" />
-                </motion.button>
-              ))}
-            </div>
-          </div>
-        ))}
+          <BsX className="w-6 h-6" />
+        </button>
       </div>
 
-      <div className="border-t pt-4 mt-4">
-        <h3 className="text-sm font-medium text-gray-700 mb-2">Scenario Simulations</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {Object.entries(conversationScenarios).map(([id, scenario]) => {
-            let icon;
-            switch(id) {
-              case 'product-return':
-                icon = <BsArrowReturnLeft className="text-red-500" />;
-                break;
-              case 'warranty-registration':
-                icon = <BsShieldCheck className="text-green-500" />;
-                break;
-              case 'refurbished-offer':
-                icon = <BsRecycle className="text-blue-500" />;
-                break;
-              case 'troubleshooting':
-                icon = <BsTools className="text-purple-500" />;
-                break;
-              default:
-                icon = <BsQuestionCircle className="text-yellow-500" />;
-            }
-            
-            return (
-              <motion.div
-                key={id}
-                className="bg-gray-50 hover:bg-gray-100 p-2 rounded cursor-pointer"
-                onClick={() => {
-                  // Navigate to deflection metrics tab and show this scenario
-                  // You could dispatch an event or use a context to communicate this
-                  alert(`To view the full "${scenario.title}" scenario, please go to the Deflection Metrics tab and select it from the examples.`);
-                  onClose();
-                }}
+      <div className="space-y-6">
+        {/* Enhanced Demo Scenarios */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Enhanced AI Capabilities</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {enhancedScenarios.map((scenario) => (
+              <motion.button
+                key={scenario.id}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => startEnhancedDemo(scenario.id)}
+                className="p-4 border rounded-lg hover:border-blue-500 transition-colors"
               >
-                <div className="flex items-center space-x-2">
-                  <div className="p-1.5 bg-white rounded-full">
-                    {icon}
-                  </div>
+                <div className="flex items-center space-x-3">
+                  {scenario.icon}
                   <div>
-                    <div className="font-medium text-gray-800 text-sm">{scenario.title}</div>
-                    <div className="text-xs text-gray-500 truncate max-w-xs">{scenario.description}</div>
+                    <h4 className="font-medium">{scenario.title}</h4>
+                    <p className="text-sm text-gray-600">{scenario.description}</p>
                   </div>
                 </div>
-              </motion.div>
-            );
-          })}
+              </motion.button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="border-t pt-4 mt-4">
-        <button
-          className="bg-gray-900 text-white py-2 px-4 rounded-md w-full hover:bg-gray-800 transition"
-          onClick={() => {
-            resetConversation();
-            onClose();
-          }}
-        >
-          Reset Conversation
-        </button>
+        {/* Original Conversation Starters */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Quick Start Conversations</h3>
+          {categorizedStarters.map((category) => (
+            <div key={category.category} className="mb-4">
+              <h4 className="font-medium text-gray-700 mb-2">{category.category}</h4>
+              <div className="space-y-2">
+                {category.starters.map((starter, index) => (
+                  <motion.button
+                    key={index}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => startDemo(index)}
+                    className="w-full p-3 text-left border rounded-lg hover:border-blue-500 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <BsChatLeftText className="w-5 h-5" />
+                      <span>{starter.initialMessage}</span>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

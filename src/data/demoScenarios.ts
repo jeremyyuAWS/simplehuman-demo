@@ -11,8 +11,8 @@ export const enhancedDemoScenarios = {
       },
       { 
         sender: 'bot', 
-        message: "I'd be happy to help you find the perfect products for both spaces! Let's start with your kitchen trash can. For a modern, high-tech kitchen, I'd recommend our 45L Rectangular Sensor Can. It features voice and motion control, a fingerprint-resistant finish, and a liner pocket for easy bag changes.",
-        image: "/images/Butterfly Step Can.webp"
+        message: "I'd be happy to help you find the perfect products for both spaces! For your kitchen, I'd recommend our 58L Dual Compartment Sensor Can with voice and motion control. It's our most advanced model featuring voice activation, a motion sensor, and separate compartments for trash and recycling. The fingerprint-resistant stainless steel finish keeps it looking clean and modern.",
+        image: "/images/simplehuman-58L-dual-compartment-sensor-can.jpg"
       },
       { 
         sender: 'user', 
@@ -20,8 +20,8 @@ export const enhancedDemoScenarios = {
       },
       { 
         sender: 'bot', 
-        message: "For your bathroom, I'd suggest our 6L Round Sensor Can. It's compact, touchless, and features a waterproof sensor. It's perfect for bathroom use and comes in a sleek white finish that complements any decor.",
-        image: "/images/Bullet Can.webp"
+        message: "For your bathroom, I'd suggest our 6L Round Sensor Can. It's compact yet sophisticated with a touchless sensor and a waterproof design perfect for bathroom environments. The rechargeable battery lasts up to 3 months per charge, and it comes in a beautiful brushed stainless steel finish that resists fingerprints and germs.",
+        image: "/images/simplehuman-6L-round-sensor-can.jpg"
       },
       { 
         sender: 'user', 
@@ -29,8 +29,8 @@ export const enhancedDemoScenarios = {
       },
       { 
         sender: 'bot', 
-        message: "Our Touch-Free Automatic Rechargeable Sensor Pump would be perfect! It's modern, hygienic, and matches the high-tech theme of your other choices. It features a rechargeable battery and a sleek stainless steel finish.",
-        image: "/images/simplehuman 9 oz. Touch-Free Automatic Rechargeable Sensor Pump.jpg"
+        message: "Our 14 oz Dual Sensor Pump would be perfect! It's our most advanced soap dispenser with dual sensors for ultimate precision - one for soap and one for sanitizer. It features variable dispensing speeds, a rechargeable battery that lasts up to 3 months, and a sleek stainless steel finish that will complement your other selections perfectly.",
+        image: "/images/simplehuman-14oz-dual-sensor-pump.jpg"
       },
       { 
         sender: 'user', 
@@ -38,13 +38,22 @@ export const enhancedDemoScenarios = {
       },
       { 
         sender: 'bot', 
-        message: "Yes! We have a bundle discount when you purchase multiple items. For these three products, I can offer you 15% off the total. Would you like me to add all three to your cart with the discount applied?" 
+        message: "Yes! I can help you with our current promotions. When you sign up for our email and text updates, you'll receive 15% off your first purchase. Additionally, as these are all sensor products, they qualify for our 'Smart Home Bundle' which includes a free set of custom-fit liners for your trash cans. Would you like me to help you create this bundle with the discount applied?" 
+      },
+      {
+        sender: 'user',
+        message: "Yes please! Can you also tell me about the warranty?"
+      },
+      {
+        sender: 'bot',
+        message: "Of course! All our sensor products come with our comprehensive warranty:\n\n- 58L Dual Compartment Sensor Can: 5-year warranty\n- 6L Round Sensor Can: 2-year warranty\n- 14 oz Dual Sensor Pump: 2-year warranty\n\nThe warranty covers mechanical defects and sensor functionality. Plus, when you register your products, you'll get exclusive access to our VIP customer service line for priority support. Would you like me to help you register these products after your purchase?"
       }
     ],
     outcomes: [
       "Multiple products recommended based on context",
-      "Bundle discount offered",
-      "Cross-sell opportunity created",
+      "Bundle discount offered with email signup incentive",
+      "Warranty information provided proactively",
+      "Product registration opportunity created",
       "Zero-party data collected: room preferences, style preferences"
     ]
   },
